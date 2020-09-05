@@ -1,0 +1,50 @@
+<div *ngIf="customer$ | async as customer; else noCustomer">
+  <app-page-header
+  [title]="customer?.firstName + ' ' + customer.lastName"
+  icon="fa fa-user"
+  description="review customer's details"
+  ></app-page-header>
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <a routerLink="/customers" class="btn btn-secondary">
+          <i class="far fa-arrow-alt-circle-left"></i> back
+        </a>
+      </p>
+
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td><b>First Name</b></td>
+            <td>{{ customer.firstName }}</td>
+          </tr>
+          <tr>
+            <td><b>Last Name</b></td>
+            <td>{{ customer.lastName }}</td>
+          </tr>
+          <tr>
+            <td><b>Email</b></td>
+            <td><a [href]="'mailto:' + customer.email">{{ customer.email }}</a></td>
+          </tr>
+          <tr>
+            <td><b>Phone</b></td>
+            <td><a [href]="'tel:' + customer.phone">{{customer.phone}}</a></td>
+          </tr>
+          <tr>
+            <td><b>Address</b></td>
+            <td>{{ customer.address }}</td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>{{  customer.notes }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<ng-template #noCustomer>
+  <div class="mt-4">
+    <i>No Customer found with ID={{ customerID }}</i>
+  </div>
+</ng-template>

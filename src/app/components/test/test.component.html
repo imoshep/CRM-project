@@ -1,0 +1,14 @@
+
+<h2>What Post do you want to read?</h2>
+<input #postId type="text" name="postId" id="postId" placeholder="post id">
+<button class="btn btn-success" (click)="getPostById(postId.value)">Get me that post!</button>
+<button class="btn btn-success" (click)="getAllPosts()">Get me all posts!</button>
+
+<pre *ngIf="postsInComponent">
+  {{ postsInComponent | json }}
+</pre>
+
+<!--
+<ng-template #loading>
+  loading...
+</ng-template> -->

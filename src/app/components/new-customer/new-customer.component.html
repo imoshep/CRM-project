@@ -1,0 +1,134 @@
+<app-page-header
+  title="add customer"
+  icon="fas fa-user-plus"
+  description="fill in new customer info"></app-page-header>
+<form #addCustomerForm="ngForm" (ngSubmit)="onSubmit(addCustomerForm)" novalidate autocomplete="off">
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label for="firstName"><span class="text-danger">*</span> First Name</label>
+      <br>
+      <input
+      type="text"
+      #fnf="ngModel"
+      [(ngModel)]="form.firstName"
+      required
+      minlength="2"
+      name="firstName"
+      id="firstName"
+      class="form-control"
+      [ngClass]="{ 'is-invalid' : fnf.errors && (fnf.touched || fnf.dirty)}">
+      <div [hidden]="!fnf.errors?.required" class="invalid-feedback">
+        First name is required
+      </div>
+      <div [hidden]="!fnf.errors?.minlength" class="invalid-feedback">
+        First name must be at least {{ fnf.errors?.minlength?.requiredLength }} characters long
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="lastName"><span class="text-danger">*</span> Last Name</label>
+      <br>
+      <input
+      type="text"
+      #lnf="ngModel"
+      [(ngModel)]="form.lastname"
+      required
+      minlength="2"
+      name="lastName"
+      id="lastName"
+      class="form-control"
+      [ngClass]="{ 'is-invalid' : lnf.errors && (lnf.touched || lnf.dirty)}">
+      <div [hidden]="!lnf.errors?.required" class="invalid-feedback">
+        Last name is required
+      </div>
+      <div [hidden]="!lnf.errors?.minlength" class="invalid-feedback">
+        Last name must be at least {{ lnf.errors?.minlength?.requiredLength }} characters long
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label for="email"><span class="text-danger">*</span> Email</label>
+      <br>
+      <input
+      type="email"
+      #emf="ngModel"
+      [(ngModel)]="form.email"
+      required
+      pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+      name="email"
+      id="email"
+      class="form-control"
+      [ngClass]="{ 'is-invalid' : emf.errors && (emf.touched || emf.dirty) }">
+      <div [hidden]="!emf.errors?.required" class="invalid-feedback">
+        Email is required
+      </div>
+      <div [hidden]="!emf.errors?.pattern" class="invalid-feedback">
+        Must be a valid email
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="phone"><span class="text-danger">*</span> Phone no.</label>
+      <br>
+      <input
+      type="tel"
+      #phf="ngModel"
+      [(ngModel)]="form.phone"
+      required
+      pattern="^\+?(972|0)-?0?(([23489]{1}\d{7})|[5]{1}\d{8})$"
+      name="phone"
+      id="phone"
+      class="form-control"
+      [ngClass]="{ 'is-invalid' : phf.errors && (phf.touched || phf.dirty) }">
+      <div [hidden]="!phf.errors?.required" class="invalid-feedback">
+        Phone number is required
+      </div>
+      <div [hidden]="!phf.errors?.pattern" class="invalid-feedback">
+        {{phf.errors?.pattern?.actualValue}} is not a valid phone number
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-md-8 row">
+    <label for="address">Address</label>
+    <br>
+    <textarea
+    #adf="ngModel"
+    [(ngModel)]="form.address"
+    name="address"
+    id="address"
+    class="form-control"></textarea>
+  </div>
+  <div class="form-group col-md-8 row">
+    <label for="notes">Notes</label>
+    <br>
+    <textarea
+    #nf="ngModel"
+    [(ngModel)]="form.notes "
+    name="notes"
+    id="notes"
+    class="form-control"
+    rows="5"></textarea>
+  </div>
+
+  <div class="fixed-bottom bg-light p-3 text-center">
+    <input
+    type="button"
+    (click)="resetForm(addCustomerForm)"
+    value="Clear"
+    class="btn btn-secondary">
+
+    <a routerLink="/customers" class="btn btn-secondary">Cancel</a>
+
+    <input
+    type="submit"
+    [disabled]="addCustomerForm.form.invalid"
+    name="submit"
+    value="Save"
+    class="btn btn-primary ml-3">
+  </div>
+
+</form>
+
+<a routerLink="/customers" class="btn btn-primary">
+  Back to Customers List </a>
+
+

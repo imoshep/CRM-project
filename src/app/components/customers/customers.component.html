@@ -1,0 +1,70 @@
+<app-page-header
+title="customers"
+icon="fas fa-address-book"
+description="list of customers"
+></app-page-header>
+
+<div *ngIf="customers | async as customerList; else loading">
+
+  <div *ngIf="customerList.length; else noCustomers" class="row">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <td>#No.</td>
+          <td>name</td>
+          <td>phone</td>
+          <td>email</td>
+          <td>address</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customerList; index as idx">
+          <!-- <td><button (click)="addToSelected(customer.id)" class="btn btn-primary">Select</button></td> -->
+          <td>
+            {{ idx + 1 }}
+              <a [routerLink]="['/customers', customer.id, 'edit']" class="ml-3">
+                <i class="fas fa-pen"></i>
+              </a>
+              <a [routerLink]="['/customers']" class="ml-3" (click)="remove(customer.id)">
+                <i class="fas fa-trash-alt"></i>
+              </a>
+          </td>
+          <td>
+            <a [routerLink]="['/customers', customer.id]">{{ customer.firstName + ' ' + customer.lastName }}</a>
+          </td>
+          <td>
+            <a [href]="'tel:' + customer.phone">{{  customer.phone }}</a>
+          </td>
+          <td>
+            <a [href]="'mailto:' + customer.email" target="_blank">{{ customer.email }}</a>
+          </td>
+          <td>{{ customer.address }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noCustomers><i>No customers to display</i></ng-template>
+
+</div>
+<ng-template #loading>loading...</ng-template>
+<!-- <button (click)="initialize()" class="btn btn-primary">Initialize Mock Data</button> -->
+<!-- <button (click)="clearDB()" class="btn btn-danger">Clear Database</button> -->
+
+<div class="row">
+  <div class="col-12">
+    <span class="float-right">
+      <a routerLink="/customers/new" class="btn btn-primary">
+        <i class="fas fa-plus-circle"></i>
+        Add New Customer </a>
+    </span>
+  </div>
+</div>
+<!--
+<pre>
+  {{ customers | async | json }}
+</pre> -->
+
+<!-- <pre>
+  {{ selectedCustomers }}
+</pre> -->
